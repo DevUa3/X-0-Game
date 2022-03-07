@@ -1,0 +1,139 @@
+*, *::after, *::before{
+  box-sizing: border-box;
+}
+:root{
+  --cell-size: 6em;
+  --turn-sixe: calc(var(--cell-size) * .9);
+}
+body{
+  margin: 0;
+  padding: 0;
+  color: white;
+  user-select: none;
+}
+.title{
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: calc(var(--cell-size) * .3);
+  text-align: center;
+}
+.title h1 strong{
+  display: block;
+}
+.continer{
+  width: 100vw;
+  height: 50vh;
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  justify-content: center;
+  align-content: center;
+  justify-items: center;
+  align-items: center;
+}
+.cell{
+  width: var(--cell-size);
+  height: var(--cell-size);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  position: relative;
+  cursor: pointer;
+}
+.cell:last-child{
+  border-radius: 0 0 1em;
+}
+.cell:first-child{
+  border-radius: 1em 0 0 0;
+}
+.cell:nth-child(3){
+  border-radius: 0 1em 0 0;
+}
+.cell:nth-child(7){
+  border-radius: 0 0 0 1em;
+}
+.cell.x::before,
+.cell.x::after,
+.cell.circle::before{
+  background-color: black;
+}
+.continer.x .cell:not(.x):not(.circle):hover::before,
+.continer.x .cell:not(.x):not(.circle):hover::after,
+.continer.circle .cell:not(.x):not(.circle):hover::before{
+  background-color: lightsteelblue;
+}
+.cell.x::before,
+.cell.x::after,
+.continer.x .cell:not(.x):not(.circle):hover::before,
+.continer.x .cell:not(.x):not(.circle):hover::after{
+  position: absolute;
+  content: "";
+  width: calc(var(--turn-sixe) * 0.15);
+  height: var(--turn-sixe);
+}
+.cell.x::before,
+.continer.x .cell:not(.x):not(.circle):hover::before{
+  transform: rotate(45deg)
+}
+.cell.x::after,
+.continer.x .cell:not(.x):not(.circle):hover::after{
+  transform: rotate(-45deg);
+}
+.cell.circle::after,
+.cell.circle::before,
+.continer.circle .cell:not(.x):not(.circle):hover::before,
+.continer.circle .cell:not(.x):not(.circle):hover::after{
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+}
+.cell.circle::before,
+.continer.circle .cell:not(.x):not(.circle):hover::before{
+  width: var(--turn-sixe);
+  height: var(--turn-sixe);
+}
+.cell.circle::after,
+.continer.circle .cell:not(.x):not(.circle):hover::after{
+  width: calc(var(--turn-sixe) * .7);
+  height: calc(var(--turn-sixe) * .7);
+  background-color: white;
+}
+.winner{
+  opacity: 0;
+  z-index: -1;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 2em;
+}
+.winner .again{
+  font-size: 0.76em;
+  padding: 0.1em 0.3em;
+  border: 1px solid white;
+  background-color: transparent;
+  color: white;
+  cursor: pointer;
+  transform: translateY(-1.8em);
+}
+.winner .again:hover{
+  color: black;
+  background-color: white;
+}
+.winner.show{
+  opacity: 1;
+  z-index: 1;
+}
+@media screen and (max-height : 300px) {
+  .continer{
+    height: 80vh;
+  }
+}
